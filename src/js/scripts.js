@@ -1,11 +1,21 @@
 window.prevSoundVolume = null;
-window.localSoundVolume = 100;
+window.localSoundVolume = getDefaultByDomain(window.location.hostname);
 
 const HOSTS_TO_IGNORE = [
     'cdn.videofarm.daum.net',
     'computerbase.de',
     'production.assets.clips.twitchcdn.net'
 ];
+
+function getDefaultByDomain(domain) {
+  // get browser settings for domains (making static because idk)
+  const settings = {"www.reddit.com": 10, "reddit.com": 10, "music.youtube.com": 50};
+  if (settings[domain] !== undefined && settings[domain] >= 0) {
+    return settings[domain];
+  }
+  return 100;
+}
+
 function _browser() {
     if (typeof browser !== 'undefined') {
         return browser;
